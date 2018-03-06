@@ -6,6 +6,7 @@ Processes turns, shows menus, rolls for random events, etc.
 from natives import *
 from player import *
 import random
+import time
 
 class Journey():
 
@@ -37,6 +38,7 @@ class Journey():
 		player.clearScreen()
 		self.printStatus(player, natives)
 		self.printMainMenu()
+		self.processMenuChoice(player, natives)
 
 	def printStatus(self, player, natives):
 
@@ -64,7 +66,7 @@ class Journey():
 			print("Your camel is showing signs of fatigue.")
 
 		# Miles
-		print("You have traveled", player.milesTraveled, "miles out of the", self.miles, "journey.")
+		print("You have traveled", player.milesTraveled, "miles out of the", self.miles, "mile journey.")
 
 		# Natives
 		distanceBehind = player.milesTraveled - natives.milesTraveled
@@ -76,9 +78,36 @@ class Journey():
 
 		print("\nWhat would you like to do?\n")
 
-		print("\t1. Travel at a moderate speed.")
+		print("\t1. Travel at moderate speed.")
 		print("\t2. Travel at full speed.")
 		print("\t3. Scout the surrounding area.")
 		print("\t4. Rest for the day.")
 		print("\t5. Take a sip out of your canteen.")
 		print("\t6. Accept your fate.")
+
+	def processMenuChoice(self, player, natives):
+
+		# Ask for input
+		choice = int(input("#"))
+
+		# Decipher input
+		if choice == 1:
+			player.travel(False)
+			natives.travel()
+		elif choice == 2:
+			player.travel(True)
+			natives.travel()
+		elif choice == 3:
+			natives.travel()
+		elif choice == 4:
+			natives.travel()
+		elif choice == 5:
+			player.quenchThirst()
+		elif choice == 6:
+			print("Some may call you cowardly, others brave for doing this.")
+			print("But hey, we all make choices.")
+			player.failed = True
+		else:
+			print("Huh? I do not understand your command.")
+			time.sleep(2)
+			self.processMenuChoice(player, natives)
