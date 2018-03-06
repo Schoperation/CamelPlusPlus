@@ -9,6 +9,8 @@ Schoperation 03/05/2018
 
 # Imports
 from player import *
+from journey import *
+import art
 
 def main():
 
@@ -27,7 +29,24 @@ def main():
 	else:
 		player.usingWindows = False
 
-	# clear screen
+	# Clear screen
 	player.clearScreen()
+
+	# Print Welcome message
+	art.logo()
+
+	# Main loop TODO
+	'''
+	while True:
+
+		
+		if failed:
+			break
+		else
+			goto next turn
+		
+	'''
+
+	input()
 
 main()
