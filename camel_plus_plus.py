@@ -23,7 +23,7 @@ def main():
 	print("\t1. Windows")
 	print("\t2. MacOS/Linux\n")
 
-	osInt = int(input(">"))
+	osInt = int(input("#"))
 
 	if osInt == 1:
 		player.usingWindows = True
@@ -65,8 +65,6 @@ def main():
 			break
 		else:
 			trip.beginTurn(player, natives, True)
-			input()
-			break
 
 def welcomeMessage():
 

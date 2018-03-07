@@ -12,6 +12,7 @@ class Player():
 		self.milesTraveled = 0
 		self.gold = 2
 		self.thirst = 0
+		self.location = "DESERT"
 		self.failed = False
 
 		""" Camel """
@@ -33,14 +34,22 @@ class Player():
 			os.system("clear")
 
 	""" Methods to deal with the player """
-	def travel(self, distance):
+	def travel(self, fullSpeed):
 
-		print("todo")
+		if fullSpeed:
+			self.milesTraveled += random.randint(10, 20)
+			self.thirst += random.randint(1, 2)
+			self.camelTiredness += random.randint(2, 4)
+		else:
+			self.milesTraveled += random.randint(5, 12)
+			self.thirst += random.randint(1, 2)
+			self.camelTiredness += random.randint(1, 2)
 
 	def quenchThirst(self):
 
 		if self.canteenSips > 0:
 			self.thirst -= 3
 			self.canteenSips -= 1
+			print("Ahhhh, how refreshing.")
 		else:
 			print("Not even a measly drop of water is left.")
