@@ -13,6 +13,7 @@ class Player():
 		self.gold = 2
 		self.thirst = 0
 		self.location = "DESERT"
+		self.inventory = [ "CANTEEN" ]
 		self.failed = False
 
 		""" Camel """
@@ -38,7 +39,10 @@ class Player():
 	def checkInventory(self):
 
 		print("You've got", self.gold, "gold coins.")
-		#print inventory here, when implemented
+		print("And the following items:")
+
+		for i in self.inventory:
+			print(i)
 
 	""" Travel. """
 	def travel(self, fullSpeed):
@@ -60,7 +64,15 @@ class Player():
 	""" Sipping from the canteen. """
 	def quenchThirst(self):
 
-		if self.canteenSips > 0:
+		# Determine if the player has a canteen.
+		hasCanteen = False
+		for i in self.inventory:
+			if i == "CANTEEN":
+				hasCanteen = True
+				break
+
+
+		if self.canteenSips > 0 and hasCanteen:
 			self.thirst -= 3
 			self.canteenSips -= 1
 			print("Ahhhh, how refreshing.")
@@ -81,5 +93,9 @@ class Player():
 
 	""" Scout the area. Lotta random. """
 	def scout(self):
+
 		# will have more stuff soon tm
+
+		self.camelTiredness -= 3
+		self.thirst += 1
 		print("Scouting complete.")
