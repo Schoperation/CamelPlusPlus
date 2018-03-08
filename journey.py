@@ -49,47 +49,45 @@ class Journey():
 		# URGENT
 		# Thirst
 		if player.thirst >= 6:
-			print("!!! You are very thirsty. !!!")
+			print("!!! You are very thirsty. !!!\n")
 		elif player.thirst >= 3:
 			print("!!! You are starting to feel thirsty. !!!\n")
 
 		# Camel
-		if player.camelTiredness >= 8:
-			print("!!! Your camel is very fatigued. It could die soon if it doesn't rest soon. !!!")
+		if player.camelTiredness >= 6:
+			print("!!! Your camel is very fatigued. It could die soon if it doesn't rest soon. !!!\n")
 		elif player.camelTiredness >= 4:
 			print("!!! Your camel is showing signs of fatigue. !!!\n")
 
-		# Location
-		print("Currently in", player.location)
-
-		# Day
+		# Day and miles traveled
 		if self.day == 1:
-			print("You've been traveling for", self.day, "day.")
+			print("Been traveling for", self.day, "day,", player.milesTraveled, "miles out of the", self.miles, "mile journey.")
 		else:
-			print("You've been traveling for", self.day, "days.")
-
-		# Money
-		print("You have", player.gold, "gold coins in your pocket.")
-
-		# Miles
-		print("You have traveled", player.milesTraveled, "miles out of the", self.miles, "mile journey.")
+			print("Traveling for", self.day, "days.", player.milesTraveled, "miles out of the", self.miles, "mile journey.")
 
 		# Natives
 		distanceBehind = player.milesTraveled - natives.milesTraveled
 		estimateHigh = distanceBehind + random.randint(2, 10)
 		estimateLow = distanceBehind - random.randint(2, 10)
+
+		# Negative low estimate? Hey now, let's change that.
+		if estimateLow <= 0:
+			estimateLow = 1
+
 		print("You estimate the natives to be between", estimateLow, "and", estimateHigh, "miles behind you.")
 
 	def printMainMenu(self):
 
 		print("\nWhat would you like to do?\n")
 
-		print("\t1. Travel at moderate speed.")
-		print("\t2. Travel at full speed.")
+		print("\t1. Take a sip out of your canteen.")
+		print("\t2. Look in your pockets.\n")
+
 		print("\t3. Scout the surrounding area.")
-		print("\t4. Rest for the day.")
-		print("\t5. Take a sip out of your canteen.")
-		print("\t6. Accept your fate.")
+		print("\t4. Travel at moderate speed.")
+		print("\t5. Travel at full speed.")
+		print("\t6. Rest for the day.")
+		print("\t7. Accept your fate (Quits the game).")
 
 	def processMenuChoice(self, player, natives):
 
@@ -98,21 +96,33 @@ class Journey():
 
 		# Decipher input
 		if choice == 1:
-			player.travel(False)
-			natives.travel()
-		elif choice == 2:
-			player.travel(True)
-			natives.travel()
-		elif choice == 3:
-			natives.travel() # TODO
-		elif choice == 4:
-			natives.travel() # TODO
-		elif choice == 5:
 			player.quenchThirst()
 			time.sleep(2)
 			print("What now?")
 			self.processMenuChoice(player, natives)
+		elif choice == 2:
+			player.checkInventory()
+			natives.milesTraveled += 1
+			time.sleep(2)
+			print("What now?")
+			self.processMenuChoice(player, natives)
+		elif choice == 3:
+			player.scout()
+			natives.travel()
+			time.sleep(2)
+		elif choice == 4:
+			player.travel(False)
+			natives.travel()
+			time.sleep(2)
+		elif choice == 5:
+			player.travel(True)
+			natives.travel()
+			time.sleep(2)
 		elif choice == 6:
+			player.rest()
+			natives.travel()
+			time.sleep(2)
+		elif choice == 7:
 			print("Some may call you cowardly, others brave for doing this.")
 			print("But hey, we all make choices.")
 			player.failed = True
@@ -151,7 +161,7 @@ class Journey():
 			player.failed = True
 			print("Not even a teardrop could save you from your death by dehydration.")
 		# Camel died of exhaustion
-		elif player.camelTiredness >= 10:
+		elif player.camelTiredness >= 8:
 			player.clearScreen()
 			art.gameOver()
 			player.failed = True

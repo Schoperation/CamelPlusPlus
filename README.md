@@ -5,10 +5,9 @@ Uses Python 3
 
 TODO:
 
--Implement scouting option
--Implement resting option
-
 -Random events, for traveling and scouting
+
 	Including village interaction, oasis interaction, etc.
+	so you can actually win
 
 -Pretty pictures

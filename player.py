@@ -34,22 +34,52 @@ class Player():
 			os.system("clear")
 
 	""" Methods to deal with the player """
+	""" Checking inventory of the player. """
+	def checkInventory(self):
+
+		print("You've got", self.gold, "gold coins.")
+		#print inventory here, when implemented
+
+	""" Travel. """
 	def travel(self, fullSpeed):
 
+		miles = 0
+
 		if fullSpeed:
-			self.milesTraveled += random.randint(10, 20)
+			miles = random.randint(10, 20)
 			self.thirst += random.randint(1, 2)
-			self.camelTiredness += random.randint(2, 4)
+			self.camelTiredness += random.randint(2, 3)
 		else:
-			self.milesTraveled += random.randint(5, 12)
+			miles = random.randint(5, 12)
 			self.thirst += random.randint(1, 2)
 			self.camelTiredness += random.randint(1, 2)
 
+		self.milesTraveled += miles
+		print("You've traveled an extra", miles, "miles.")
+
+	""" Sipping from the canteen. """
 	def quenchThirst(self):
 
 		if self.canteenSips > 0:
 			self.thirst -= 3
 			self.canteenSips -= 1
 			print("Ahhhh, how refreshing.")
+			if self.canteenSips == 1:
+				print(self.canteenSips, "measly sip left.")
+			else:
+				print(self.canteenSips, "sips left.")
 		else:
 			print("Not even a measly drop of water is left.")
+
+	""" Resting for the day. """
+	def rest(self):
+
+		self.camelTiredness -= 5
+		self.thirst += 1
+
+		print("You've rested along with your camel.")
+
+	""" Scout the area. Lotta random. """
+	def scout(self):
+		# will have more stuff soon tm
+		print("Scouting complete.")

@@ -22,3 +22,5 @@ class Natives():
 			self.milesIncrement = random.randint(10, 15)
 		else:
 			self.milesIncrement = random.randint(15, 20)
+
+		self.milesTraveled += self.milesIncrement
