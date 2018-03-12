@@ -41,10 +41,11 @@ def main():
 	# Difficulty selection
 	diff = difficultySelection()
 
-	# Decipher difficulty
+	# Create journey and natives
 	trip = Journey()
 	natives = Natives()
 
+	# Decipher difficulty
 	if diff == 1:
 		trip.setLength(200)
 	elif diff == 2:
