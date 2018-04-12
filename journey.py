@@ -22,7 +22,7 @@ class Journey():
 
 		self.miles = value
 
-		if value == 200:
+		if value <= 300:
 			self.chanceForBullCrap = 0.05
 			self.chanceForMiracles = 0.05
 		else:
@@ -37,10 +37,19 @@ class Journey():
 			self.day += 1
 
 		player.clearScreen()
-		# TODO put a visual of the player's location on this line
+		self.printLocation(player)
 		self.printStatus(player, natives)
 		self.printMainMenu()
 		self.processMenuChoice(player, natives)
+
+	""" An image of where the player is. """
+	def printLocation(self, player):
+
+		if player.location == "DESERT":
+			art.desert()
+		else:
+			print("NOPE")
+
 
 	def printStatus(self, player, natives):
 
